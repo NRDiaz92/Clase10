@@ -3,17 +3,25 @@ pipeline {
     string(name: 'DOCKER_REGISTRY', description: 'Docker registry to store the image', defaultValue: 'nrdiaz92/educacionit')
   }
 
+  agent any
+
   stages {
     stage('Docker login') {
-        sh 'docker login -u ${DOCKER_USER} -p ${DOCKER_PASS}'
+        step {
+            sh 'docker login -u ${DOCKER_USER} -p ${DOCKER_PASS}'
+        }
     }
 
     stage('Docker build') {
-        sh 'docker build -t ${env.DOCKER_REGISTRY}:clase10-${commit}'
+        step {
+            sh 'docker build -t ${env.DOCKER_REGISTRY}:clase10-${commit}'
+        }
     }
 
     stage('Docker push') {
-        sh 'docker push ${env.DOCKER_REGISTRY}:clase10-${commit}'
+        step {
+            sh 'docker push ${env.DOCKER_REGISTRY}:clase10-${commit}'
+        }
     }
   }
 }
