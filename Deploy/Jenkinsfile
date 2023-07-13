@@ -7,19 +7,19 @@ pipeline {
 
   stages {
     stage('Docker login') {
-        step {
+        steps {
             sh 'docker login -u ${DOCKER_USER} -p ${DOCKER_PASS}'
         }
     }
 
     stage('Docker build') {
-        step {
+        steps {
             sh 'docker build -t ${env.DOCKER_REGISTRY}:clase10-${commit}'
         }
     }
 
     stage('Docker push') {
-        step {
+        steps {
             sh 'docker push ${env.DOCKER_REGISTRY}:clase10-${commit}'
         }
     }
